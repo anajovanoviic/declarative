@@ -1,25 +1,34 @@
 pipeline {
 
     agent any
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Ana', description: 'Upisi ime')
+
+        
+
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+    }
     
     stages {
-        stage("build") {
+        stage("Step 1") {
             steps {
-                println('building the application...')
+                println('Hello ${params.PERSON}')
+                if(${params.TOGGLE}){
+                    echo "Status je true"
+                } else {
+                    echo "Status je false"
+                }
             }
         }
-        stage("test") {
+        stage("Step 2 - Git") {
             steps {
                 println('testing the application...')
                 
                 }
             }
         }
-        stage("deploy") {
-            steps {
-                println('deploying the application...')
-            
-            }
-        }
+        
     }   
 }
